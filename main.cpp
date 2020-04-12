@@ -3,8 +3,10 @@
 //
 
 #include <iostream>
+#include "Game.h"
 
 int main() {
-    std::cout << "Hell";
+    Game game;
+    game.start();
 }
 
