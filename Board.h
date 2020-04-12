@@ -7,6 +7,17 @@
 
 
 class Board {
+private:
+
+    unsigned char grid[8][8] = {0};
+    unsigned char board_size;
+
+public:
+    Board(int board_size);
+
+    bool check_at(int row, int col);
+    void check_all();
+    bool put_card(int row, int col, int val);
 
 };
 
