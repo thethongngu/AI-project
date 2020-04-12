@@ -63,7 +63,9 @@ int Board::get_cell(int row, int col) {
 void Board::print_board() {
     for(int row = 1; row <= board_size; row++) {
         for(int col = 1; col <= board_size; col++) {
-            std::cout << std::setw(4) << get_cell(row, col);
+            int cell = get_cell(row, col);
+            char val = (log[row][col] != EMPTY && cell == 0) ? val = 'X' : val = '0';
+            std::cout << std::setw(4) << val;
         }
         std::cout << std::endl;
     }

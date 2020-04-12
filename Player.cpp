@@ -52,4 +52,6 @@ void Player::make_move(int &row, int &col, int &val) {
     row = 2;
     col = 3;
     val = 13;
+
+    remove_card(val);
 }

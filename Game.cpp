@@ -29,9 +29,11 @@ void Game::start() {
             std::cout << "[AI]: (" << row << ", " << col << ", " << val << ")" << std::endl;
         }
 
-        board.put_card(row, col, val, turn);
+        if (!board.put_card(row, col, val, turn)) {
+            std::cout << "Illegal move. Please try again!" << std::endl;
+            continue;
+        }
         board.check_all();
-
         print_game();
         turn = 1 - turn;
 
