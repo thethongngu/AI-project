@@ -43,6 +43,7 @@ void Player::remove_card(int val) {
         if (cards[i] == val) {
             cards[i] = cards[num_card - 1];
             cards[num_card - 1] = 0;
+            break;
         }
     }
     num_card--;

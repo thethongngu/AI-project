@@ -17,6 +17,7 @@ public:
     Board();
 
     void reset(int size);
+    int get_size();
     int get_cell(int row, int col);
     bool check_at(int row, int col);
     void check_all();

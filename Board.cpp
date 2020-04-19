@@ -81,3 +81,7 @@ int Board::get_score(int player) {
 
     return sum;
 }
+
+int Board::get_size() {
+    return board_size;
+}

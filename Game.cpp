@@ -20,7 +20,7 @@ void Game::start() {
     print_game();
 
     do {
-        if (turn % 2 == 1) {
+        if (turn == 1) {
             std::cout << "Input (row, col, weight): ";  std::cin >> row >> col >> val;
             std::cout << "[User]: (" << row << ", " << col << ", " << val << ")" << std::endl;
             human.remove_card(val);
