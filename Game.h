@@ -11,7 +11,7 @@
 
 class Game {
 private:
-    int turn;
+    int is_user;
     int board_size;
 
     Board board;
@@ -19,7 +19,7 @@ private:
     int human_score, ai_score;
 
 public:
-    Game();
+    Game(int is_user, int board_size);
 
     void start();
     bool end_game();

@@ -4,17 +4,16 @@
 
 #include <iostream>
 #include "Player.h"
+#include "Node.h"
 
-Player::Player() {}
-
-void Player::reset(bool human, int board_size) {
-    this->is_human = human;
+Player::Player(bool human, int board_size) : is_human(human) {
     reset_card(board_size);
 }
 
 void Player::reset_card(int board_size) {
     if (board_size == 4) {
-        cards[0] = 2;  cards[1] = 3; cards[2] = 5; cards[3] = 8; cards[4] = 13;
+        cards[0] = 2;  cards[1] = 3; cards[2] = 5;
+        cards[3] = 8;  cards[4] = 13;
         num_card = 5;
     } else {
         cards[0] = cards[1] = 2;
@@ -49,10 +48,13 @@ void Player::remove_card(int val) {
     num_card--;
 }
 
-void Player::make_move(int &row, int &col, int &val) {
-    row = 2;
-    col = 3;
-    val = 13;
+void Player::make_move(const Board &board, const Player &human, const Player &ai, int &row, int &col, int &val) {
 
-    remove_card(val);
+    int max_depth = 3;
+    Node root(board, human, ai, max_depth);
+    root.search_ab(0, false, -1000000000, 1000000000, row, col, val);
+}
+
+unsigned char Player::get_card(int card_id) {
+    return cards[card_id];
 }

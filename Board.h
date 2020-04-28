@@ -9,23 +9,25 @@
 class Board {
 private:
 
-    unsigned char grid[8][8] = {0};  // card value
-    unsigned char log[8][8] = {0};   // card player
+    unsigned char grid[8][8];  // card value
+    unsigned char log[8][8];   // card player
     unsigned char board_size;
 
 public:
-    Board();
+    explicit Board(int size);
 
-    void reset(int size);
-    int get_size();
+    void reset();
+
+    int get_size() const;
     int get_cell(int row, int col);
+    int is_empty(int row, int col);
+
     bool check_at(int row, int col);
     void check_all();
+    bool can_put_card(int row, int col);
     bool put_card(int row, int col, int val, int player);
     void print_board();
     int get_score(int player);
-
-    static unsigned char EMPTY;
 };
 
 

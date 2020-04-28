@@ -6,15 +6,20 @@
 #include <algorithm>
 #include <iostream>
 #include <iomanip>
+#include "global.h"
 
-unsigned char Board::EMPTY = 2;
-
-Board::Board() {
-    this->board_size = 0;
+Board::Board(int size) : grid{0}, log{0} {
+    this->board_size = size;
+    for(int row = 1; row <= board_size; row++) {
+        for (int col = 1; col <= board_size; col++) {
+            grid[row][col] = 0;
+            log[row][col] = EMPTY_CELL;
+        }
+    }
 }
 
 bool Board::put_card(int row, int col, int val, int player) {
-    if (log[row][col] != EMPTY) return false;
+    if (!can_put_card(row, col)) return false;
     grid[row][col] = val;
     log[row][col] = player;
     return true;
@@ -46,12 +51,11 @@ void Board::check_all() {
     }
 }
 
-void Board::reset(int size) {
-    this->board_size = size;
+void Board::reset() {
     for(int row = 1; row <= board_size; row++) {
         for (int col = 1; col <= board_size; col++) {
             grid[row][col] = 0;
-            log[row][col] = EMPTY;
+            log[row][col] = EMPTY_CELL;
         }
     }
 }
@@ -61,11 +65,15 @@ int Board::get_cell(int row, int col) {
 }
 
 void Board::print_board() {
+    std::cout << "===================================" << std::endl;
     for(int row = 1; row <= board_size; row++) {
         for(int col = 1; col <= board_size; col++) {
             int cell = get_cell(row, col);
-            char val = (log[row][col] != EMPTY && cell == 0) ? val = 'X' : val = '0';
-            std::cout << std::setw(4) << val;
+            if (log[row][col] != EMPTY_CELL && cell == 0) {
+                std::cout << std::setw(4) << 'X';
+            } else {
+                std::cout << std::setw(4) << cell;
+            }
         }
         std::cout << std::endl;
     }
@@ -82,6 +90,14 @@ int Board::get_score(int player) {
     return sum;
 }
 
-int Board::get_size() {
+int Board::get_size() const {
     return board_size;
+}
+
+int Board::is_empty(int row, int col) {
+    return log[row][col] == EMPTY_CELL;
+}
+
+bool Board::can_put_card(int row, int col) {
+    return log[row][col] == EMPTY_CELL;
 }

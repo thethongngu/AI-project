@@ -6,6 +6,8 @@
 #define MAIN_PLAYER_H
 
 
+#include "Board.h"
+
 class Player {
 private:
     unsigned char cards[11];
@@ -13,14 +15,15 @@ private:
     bool is_human;
 
 public:
-    Player();
+    Player(bool is_human, int board_size);
 
-    void reset(bool is_human, int board_size);
     void reset_card(int board_size);
+    unsigned char get_card(int card_id);
     int get_num_card() const;
     void print_card();
     void remove_card(int val);
-    void make_move(int &row, int &col, int&val);
+
+    void make_move(const Board& board, const Player& human, const Player& ai, int &row, int &col, int&val);
 };
 
 

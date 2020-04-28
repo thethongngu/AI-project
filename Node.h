@@ -15,13 +15,19 @@ private:
     Board board;
     Player human;
     Player ai;
+    int max_depth;
     std::vector<Node> children;
 
 public:
-    Node();
-    void reset(Board x);
-    int search_ab(Node node, int depth, int curr_depth, int turn, int alpha, int beta, int &row, int &col, int &val);
+    Node(Board x, Player human, Player ai, int max_depth);
+
+    Player& get_human();
+    Player& get_ai();
+    Board& get_board();
     bool is_terminal();
+
+    void generate_children(bool is_user_turn);
+    int search_ab(int curr_depth, int is_user_turn, int alpha, int beta, int &row, int &col, int &val);
     int eval();
 };
 

@@ -4,38 +4,39 @@
 
 #include <iostream>
 #include "Game.h"
+#include "global.h"
+
+Game::Game(int is_user, int board_size) :
+        board{board_size}, human{true, board_size}, ai{true, board_size} {
+
+    this->is_user = is_user;
+    this->board_size = board_size;
+    this->human_score = this->ai_score = 0;
+}
 
 void Game::start() {
     int row, col, val;
 
-    std::cout << "User first(0/1): ";
-    std::cin >> turn;
-    std::cout << "Board size? (4 or 6): ";
-    std::cin >> board_size;
-
-    board.reset(board_size);
-    human.reset(true, board_size);
-    ai.reset(false, board_size);
-    human_score = ai_score = 0;
     print_game();
-
     do {
-        if (turn == 1) {
+        if (is_user == 1) {
             std::cout << "Input (row, col, weight): ";  std::cin >> row >> col >> val;
             std::cout << "[User]: (" << row << ", " << col << ", " << val << ")" << std::endl;
+            if (!board.put_card(row, col, val, HUMAN_CELL)) {
+                std::cout << "Illegal move. Please try again!" << std::endl;
+                continue;
+            }
             human.remove_card(val);
         } else {
-            ai.make_move(row, col, val);
+            ai.make_move(board, human, ai, row, col, val);
+            board.put_card(row, col, val, AI_CELL);
+            ai.remove_card(val);
             std::cout << "[AI]: (" << row << ", " << col << ", " << val << ")" << std::endl;
         }
 
-        if (!board.put_card(row, col, val, turn)) {
-            std::cout << "Illegal move. Please try again!" << std::endl;
-            continue;
-        }
         board.check_all();
         print_game();
-        turn = 1 - turn;
+        is_user = 1 - is_user;
 
     } while (!end_game());
 }
@@ -52,5 +53,3 @@ void Game::print_game() {
 bool Game::end_game() {
     return human.get_num_card() == 0 && ai.get_num_card() == 0;
 }
-
-Game::Game() {}
