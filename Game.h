@@ -24,6 +24,7 @@ public:
     void start();
     bool end_game();
     void print_game();
+    bool validate_user_input(int row, int col, int val);
 };
 
 

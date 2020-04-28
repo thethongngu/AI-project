@@ -15,20 +15,21 @@ private:
     Board board;
     Player human;
     Player ai;
-    int max_depth;
     int last_row, last_col, last_val;
     int score;
     std::vector<Node> children;
 
 public:
-    Node(Board x, Player human, Player ai, int max_depth);
+    Node(Board x, Player human, Player ai);
 
     Player& get_human();
     Player& get_ai();
     Board& get_board();
     bool is_terminal();
 
+    void update_last_move(int row, int col, int val);
     void generate_children(bool is_user_turn);
+
     int search_ab(int curr_depth, int is_user_turn, int alpha, int beta);
     void get_best_move(int &row, int &col, int &val);
     int eval();

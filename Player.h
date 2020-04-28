@@ -17,9 +17,11 @@ private:
 public:
     Player(bool is_human, int board_size);
 
+
     void reset_card(int board_size);
     unsigned char get_card(int card_id);
-    int get_num_card() const;
+    int get_num_card();
+    bool has_card(int val);
     void print_card();
     void remove_card(int val);
 

@@ -22,7 +22,7 @@ void Game::start() {
         if (is_user == 1) {
             std::cout << "Input (row, col, weight): ";  std::cin >> row >> col >> val;
             std::cout << "[\033[1;31mUser\033[0m]: (" << row << ", " << col << ", " << val << ")" << std::endl;
-            if (!board.put_card(row, col, val, HUMAN_CELL)) {
+            if (!validate_user_input(row, col, val) || !board.put_card(row, col, val, HUMAN_CELL)) {
                 std::cout << "Illegal move. Please try again!" << std::endl;
                 continue;
             }
@@ -52,4 +52,10 @@ void Game::print_game() {
 
 bool Game::end_game() {
     return human.get_num_card() == 0 && ai.get_num_card() == 0;
+}
+
+bool Game::validate_user_input(int row, int col, int val) {
+    if (row < 1 || row > board_size) return false;
+    if (col < 1 || col > board_size) return false;
+    return human.has_card(val);
 }

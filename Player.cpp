@@ -26,7 +26,7 @@ void Player::reset_card(int board_size) {
     }
 }
 
-int Player::get_num_card() const {
+int Player::get_num_card() {
     return num_card;
 }
 
@@ -35,10 +35,16 @@ void Player::print_card() {
     for(int i = 0; i < num_card - 1; i++) {
         std::cout << int(cards[i]) << ", ";
     }
-    std::cout << int(cards[num_card - 1]) << "]" << std::endl;
+    if (num_card != 0) std::cout << int(cards[num_card - 1]);
+    std::cout << "]" << std::endl;
 }
 
 void Player::remove_card(int val) {
+    if (num_card == 1) {
+        cards[0] = 0;
+        num_card = 0;
+        return;
+    }
     for(int i = 0; i < num_card; i++) {
         if (cards[i] == val) {
             cards[i] = cards[num_card - 1];
@@ -50,12 +56,17 @@ void Player::remove_card(int val) {
 }
 
 void Player::make_move(const Board &board, const Player &human, const Player &ai, int &row, int &col, int &val) {
-    int max_depth = 3;
-    Node root(board, human, ai, max_depth);
+    Node root(board, human, ai);
     root.search_ab(0, false, MIN, MAX);
     root.get_best_move(row, col, val);
 }
 
 unsigned char Player::get_card(int card_id) {
     return cards[card_id];
+}
+
+bool Player::has_card(int val) {
+    for(int i = 0; i < num_card; i++)
+        if (cards[i] == val) return true;
+    return false;
 }
