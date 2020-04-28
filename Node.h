@@ -16,6 +16,8 @@ private:
     Player human;
     Player ai;
     int max_depth;
+    int last_row, last_col, last_val;
+    int score;
     std::vector<Node> children;
 
 public:
@@ -27,7 +29,8 @@ public:
     bool is_terminal();
 
     void generate_children(bool is_user_turn);
-    int search_ab(int curr_depth, int is_user_turn, int alpha, int beta, int &row, int &col, int &val);
+    int search_ab(int curr_depth, int is_user_turn, int alpha, int beta);
+    void get_best_move(int &row, int &col, int &val);
     int eval();
 };
 

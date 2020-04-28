@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Player.h"
 #include "Node.h"
+#include "global.h"
 
 Player::Player(bool human, int board_size) : is_human(human) {
     reset_card(board_size);
@@ -30,7 +31,7 @@ int Player::get_num_card() const {
 }
 
 void Player::print_card() {
-    std::cout << "[" << (is_human ? "User" : "AI") << " chess pieces]: [";
+    std::cout << "[" << (is_human ? "\033[1;31mUser chess pieces\033[0m]: [" : "\033[1;32mAI chess pieces\033[0m]: [");
     for(int i = 0; i < num_card - 1; i++) {
         std::cout << int(cards[i]) << ", ";
     }
@@ -49,10 +50,10 @@ void Player::remove_card(int val) {
 }
 
 void Player::make_move(const Board &board, const Player &human, const Player &ai, int &row, int &col, int &val) {
-
     int max_depth = 3;
     Node root(board, human, ai, max_depth);
-    root.search_ab(0, false, -1000000000, 1000000000, row, col, val);
+    root.search_ab(0, false, MIN, MAX);
+    root.get_best_move(row, col, val);
 }
 
 unsigned char Player::get_card(int card_id) {

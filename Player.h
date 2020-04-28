@@ -10,8 +10,8 @@
 
 class Player {
 private:
-    unsigned char cards[11];
-    unsigned char num_card;
+    unsigned char cards[11]{};
+    unsigned char num_card{};
     bool is_human;
 
 public:

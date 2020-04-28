@@ -7,7 +7,7 @@
 #include "global.h"
 
 Game::Game(int is_user, int board_size) :
-        board{board_size}, human{true, board_size}, ai{true, board_size} {
+        board{board_size}, human{true, board_size}, ai{false, board_size} {
 
     this->is_user = is_user;
     this->board_size = board_size;
@@ -21,7 +21,7 @@ void Game::start() {
     do {
         if (is_user == 1) {
             std::cout << "Input (row, col, weight): ";  std::cin >> row >> col >> val;
-            std::cout << "[User]: (" << row << ", " << col << ", " << val << ")" << std::endl;
+            std::cout << "[\033[1;31mUser\033[0m]: (" << row << ", " << col << ", " << val << ")" << std::endl;
             if (!board.put_card(row, col, val, HUMAN_CELL)) {
                 std::cout << "Illegal move. Please try again!" << std::endl;
                 continue;
@@ -31,7 +31,7 @@ void Game::start() {
             ai.make_move(board, human, ai, row, col, val);
             board.put_card(row, col, val, AI_CELL);
             ai.remove_card(val);
-            std::cout << "[AI]: (" << row << ", " << col << ", " << val << ")" << std::endl;
+            std::cout << "[\033[1;32mAI\033[0m]: (" << row << ", " << col << ", " << val << ")" << std::endl;
         }
 
         board.check_all();

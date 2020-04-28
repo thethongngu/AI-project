@@ -72,7 +72,13 @@ void Board::print_board() {
             if (log[row][col] != EMPTY_CELL && cell == 0) {
                 std::cout << std::setw(4) << 'X';
             } else {
-                std::cout << std::setw(4) << cell;
+                if (log[row][col] == HUMAN_CELL) {
+                    std::cout << "\033[1;31m" << std::setw(4)  << cell << "\033[0m";
+                } else if (log[row][col] == AI_CELL) {
+                    std::cout << "\033[1;32m" << std::setw(4) << cell << "\033[0m";
+                } else {
+                    std::cout << std::setw(4) << cell;
+                }
             }
         }
         std::cout << std::endl;
