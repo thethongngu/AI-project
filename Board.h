@@ -25,12 +25,13 @@ public:
 
     bool check_at(int row, int col);
     void check_all();
+    static int check_ai_win(int human_score, int human_card, int ai_score, int ai_card);
     bool can_put_card(int row, int col);
+
     bool put_card(int row, int col, int val, int player);
     void print_board();
 
-    int get_largest_card(int player);
-    int get_score(int player);
+    void get_score(int player, int &board_score, int &card_score);
 };
 
 

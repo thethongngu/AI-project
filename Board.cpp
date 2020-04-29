@@ -65,8 +65,14 @@ int Board::get_cell(int row, int col) {
 }
 
 void Board::print_board() {
-    std::cout << "===================================" << std::endl;
+
+    std::cout << std::endl << "       |" << std::setw(4) << 1;
+    for(int i = 2; i <= board_size; i++) std::cout << std::setw(4) << i;
+    std::cout << std::endl;
+    std::cout << "-----------------------------" << std::endl;
+
     for(int row = 1; row <= board_size; row++) {
+        std::cout << std::setw(4) << row << "   |";
         for(int col = 1; col <= board_size; col++) {
             int cell = get_cell(row, col);
             if (log[row][col] != EMPTY_CELL && cell == 0) {
@@ -83,17 +89,20 @@ void Board::print_board() {
         }
         std::cout << std::endl;
     }
+
+    std::cout << "\n======================================" << std::endl;
 }
 
-int Board::get_score(int player) {
-    int sum = 0;
+void Board::get_score(int player, int &board_score, int &card_score) {
+    card_score = 0;  board_score = 0;
     for(int row = 1; row <= board_size; row++) {
         for (int col = 1; col <= board_size; col++) {
-            sum += (log[row][col] == player ? get_cell(row, col) : 0);
+            if (log[row][col] == player) {
+                board_score += get_cell(row, col);
+                card_score = std::max(card_score, get_cell(row, col));
+            }
         }
     }
-
-    return sum;
 }
 
 int Board::get_size() const {
@@ -109,17 +118,6 @@ bool Board::can_put_card(int row, int col) {
     return log[row][col] == EMPTY_CELL;
 }
 
-int Board::get_largest_card(int player) {
-    int res = 0;
-    for(int row = 1; row <= board_size; row++) {
-        for (int col = 1; col <= board_size; col++) {
-            if(log[row][col] == player) res = std::max(res, get_cell(row, col));
-        }
-    }
-
-    return res;
-}
-
 int Board::num_empty() const {
     int res = 0;
     for(int row = 1; row <= board_size; row++) {
@@ -129,3 +127,12 @@ int Board::num_empty() const {
     }
     return res;
 }
+
+int Board::check_ai_win(int human_score, int human_card, int ai_score, int ai_card) {
+    if (human_score > ai_score) return -1;
+    if (human_score == ai_score && human_card > ai_card) return -1;
+    if (human_score == ai_score && human_card == ai_card) return 0;
+    return 1;
+}
+
+

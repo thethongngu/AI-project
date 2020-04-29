@@ -18,7 +18,15 @@ bool Node::is_terminal() {
 }
 
 int Node::eval() {
-    return board.get_score(AI_CELL) + ai.sum_cards() - board.get_score(HUMAN_CELL) - human.sum_cards();
+    int human_score, human_card, ai_score, ai_card;
+    board.get_score(HUMAN_CELL, human_score, human_card);
+    board.get_score(AI_CELL, ai_score, ai_card);
+
+    if (is_terminal()) {
+        return Board::check_ai_win(human_score, human_card, ai_score, ai_card) * MAX;
+    } else {
+        return human_score + human_card - ai_score - ai_card;
+    }
 }
 
 int Node::search_ab(int curr_depth, int max_depth, int is_user_turn, int alpha, int beta) {
@@ -114,5 +122,3 @@ void Node::get_best_move(int &row, int &col, int &val) {
 void Node::update_last_move(int row, int col, int val) {
     last_row = row;  last_col = col;  last_val = val;
 }
-
-

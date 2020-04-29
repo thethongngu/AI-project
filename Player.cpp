@@ -31,7 +31,7 @@ int Player::get_num_card() const {
 }
 
 void Player::print_card() {
-    std::cout << "[" << (is_human ? "\033[1;31mUser chess pieces\033[0m]: [" : "\033[1;32mAI chess pieces\033[0m]: [");
+    std::cout << "[" << (is_human ? "\033[1;31mUser chess pieces\033[0m]: [" : "\033[1;32mAI chess pieces\033[0m  ]: [");
     for(int i = 0; i < num_card - 1; i++) {
         std::cout << int(cards[i]) << ", ";
     }

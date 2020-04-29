@@ -46,7 +46,7 @@ void Game::start(bool autoplay) {
     std::cout << s << std::endl;
     std::cout << "========================================" << std::endl;
     std::cout << "\033[1;31mUser score\033[0m (score, largest card): " << human_score << " " << human_card << std::endl;
-    std::cout << "\033[1;32mAI score\033[0m (score, largest card): " << ai_score << " " << ai_card << std::endl;
+    std::cout << "\033[1;32mAI score\033[0m   (score, largest card): " << ai_score << " " << ai_card << std::endl;
 }
 
 void Game::print_game() {
@@ -69,13 +69,7 @@ bool Game::validate_user_input(int row, int col, int val) {
 }
 
 int Game::get_result(int &human_score, int &ai_score, int &human_card, int &ai_card) {
-    human_score = board.get_score(HUMAN_CELL);
-    ai_score = board.get_score(AI_CELL);
-    human_card = board.get_largest_card(HUMAN_CELL);
-    ai_card = board.get_largest_card(AI_CELL);
-
-    if (human_score > ai_score) return -1;
-    if (human_score == ai_score && human_card > ai_card) return -1;
-    if (human_score == ai_score && human_card == ai_card) return 0;
-    return 1;
+    board.get_score(HUMAN_CELL, human_score, human_card);
+    board.get_score(AI_CELL, ai_score, ai_card);
+    return board.check_ai_win(human_score, human_card, ai_score, ai_card);
 }
