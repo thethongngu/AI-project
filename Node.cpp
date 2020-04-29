@@ -16,10 +16,10 @@ int Node::eval() {
     return board.get_score(AI_CELL) + ai.sum_cards() / 2;
 }
 
-int Node::search_ab(int curr_depth, int is_user_turn, int alpha, int beta) {
+int Node::search_ab(int curr_depth, int max_depth, int is_user_turn, int alpha, int beta) {
 
 //    get_board().print_board();
-    if (curr_depth == MAX_DEPTH || is_terminal()) {
+    if (curr_depth == max_depth || is_terminal()) {
         score = eval();
         return score;
     }
@@ -29,7 +29,7 @@ int Node::search_ab(int curr_depth, int is_user_turn, int alpha, int beta) {
     if (!is_user_turn) {  // ai moves, maximizing
         score = MIN;
         for(auto& child: children) {
-            score = std::max(score, child.search_ab(curr_depth + 1, !is_user_turn, alpha, beta));
+            score = std::max(score, child.search_ab(curr_depth + 1, max_depth, !is_user_turn, alpha, beta));
             alpha = std::max(alpha, score);
             if (alpha >= beta) break;
         }
@@ -38,7 +38,7 @@ int Node::search_ab(int curr_depth, int is_user_turn, int alpha, int beta) {
     } else {  // human moves, minimizing
         score = MAX;
         for(auto& child: children) {
-            score = std::min(score, child.search_ab(curr_depth + 1, !is_user_turn, alpha, beta));
+            score = std::min(score, child.search_ab(curr_depth + 1, max_depth, !is_user_turn, alpha, beta));
             beta = std::min(beta, score);
             if (alpha >= beta) break;
         }

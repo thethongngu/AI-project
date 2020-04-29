@@ -26,7 +26,7 @@ void Player::reset_card(int board_size) {
     }
 }
 
-int Player::get_num_card() {
+int Player::get_num_card() const {
     return num_card;
 }
 
@@ -57,7 +57,9 @@ void Player::remove_card(int val) {
 
 void Player::make_move(const Board &board, const Player &human, const Player &ai, int &row, int &col, int &val) {
     Node root(board, human, ai);
-    root.search_ab(0, false, MIN, MAX);
+    int max_depth = estimate_max_depth(board, human, ai);
+    std::cout << max_depth << std::endl;
+    root.search_ab(0, max_depth, false, MIN, MAX);
     root.get_best_move(row, col, val);
 }
 
@@ -75,4 +77,26 @@ int Player::sum_cards() {
     int res = 0;
     for(int i = 0; i < num_card; i++) res += cards[i];
     return res;
+}
+
+int Player::estimate_max_depth(const Board &board, const Player &human, const Player &ai) {
+    int num_empty = board.num_empty();
+    int num_ai = ai.get_num_card();
+    int num_human = human.get_num_card();
+    int num_node = 1, depth = 0, turn = 0;
+
+    do {
+        depth++;
+        if (turn == 0) {
+            num_node *= num_empty * num_ai;
+            num_ai--;
+        } else {
+            num_node *= num_empty * num_human;
+            num_human--;
+        }
+        num_empty--;
+        turn = 1 - turn;
+    } while (num_node <= MAX_NODE && num_empty > 0 && num_ai + num_human > 0);
+
+    return depth;
 }

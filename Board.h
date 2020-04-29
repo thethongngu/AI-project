@@ -20,7 +20,8 @@ public:
 
     int get_size() const;
     int get_cell(int row, int col);
-    int is_empty(int row, int col);
+    int is_empty(int row, int col) const;
+    int num_empty() const;
 
     bool check_at(int row, int col);
     void check_all();

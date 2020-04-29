@@ -30,7 +30,7 @@ public:
     void update_last_move(int row, int col, int val);
     void generate_children(bool is_user_turn);
 
-    int search_ab(int curr_depth, int is_user_turn, int alpha, int beta);
+    int search_ab(int curr_depth, int max_depth, int is_user_turn, int alpha, int beta);
     void get_best_move(int &row, int &col, int &val);
     int eval();
 };

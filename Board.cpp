@@ -100,9 +100,10 @@ int Board::get_size() const {
     return board_size;
 }
 
-int Board::is_empty(int row, int col) {
+int Board::is_empty(int row, int col) const {
     return log[row][col] == EMPTY_CELL;
 }
+
 
 bool Board::can_put_card(int row, int col) {
     return log[row][col] == EMPTY_CELL;
@@ -116,5 +117,15 @@ int Board::get_largest_card(int player) {
         }
     }
 
+    return res;
+}
+
+int Board::num_empty() const {
+    int res = 0;
+    for(int row = 1; row <= board_size; row++) {
+        for (int col = 1; col <= board_size; col++) {
+            if (is_empty(row, col)) res++;
+        }
+    }
     return res;
 }

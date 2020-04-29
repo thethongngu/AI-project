@@ -20,13 +20,14 @@ public:
 
     void reset_card(int board_size);
     unsigned char get_card(int card_id);
-    int get_num_card();
+    int get_num_card() const;
     bool has_card(int val);
     void print_card();
     void remove_card(int val);
     int sum_cards();
 
-    void make_move(const Board& board, const Player& human, const Player& ai, int &row, int &col, int&val);
+    static int estimate_max_depth(const Board& board, const Player& human, const Player& ai);
+    static void make_move(const Board& board, const Player& human, const Player& ai, int &row, int &col, int&val);
 };
 
 
