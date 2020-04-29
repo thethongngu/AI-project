@@ -27,6 +27,8 @@ public:
     bool can_put_card(int row, int col);
     bool put_card(int row, int col, int val, int player);
     void print_board();
+
+    int get_largest_card(int player);
     int get_score(int player);
 };
 

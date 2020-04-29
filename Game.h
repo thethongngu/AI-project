@@ -16,7 +16,6 @@ private:
 
     Board board;
     Player human, ai;
-    int human_score, ai_score;
 
 public:
     Game(int is_user, int board_size);
@@ -24,6 +23,7 @@ public:
     void start();
     bool end_game();
     void print_game();
+    int get_result(int &human_score, int &ai_score, int &human_card, int &ai_card);
     bool validate_user_input(int row, int col, int val);
 };
 

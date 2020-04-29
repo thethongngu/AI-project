@@ -87,9 +87,9 @@ void Board::print_board() {
 
 int Board::get_score(int player) {
     int sum = 0;
-    for(int row = 1; row < board_size; row++) {
-        for (int col = 1; col < board_size; col++) {
-            sum += (log[row][col] == player ? grid[row][col] : 0);
+    for(int row = 1; row <= board_size; row++) {
+        for (int col = 1; col <= board_size; col++) {
+            sum += (log[row][col] == player ? get_cell(row, col) : 0);
         }
     }
 
@@ -106,4 +106,15 @@ int Board::is_empty(int row, int col) {
 
 bool Board::can_put_card(int row, int col) {
     return log[row][col] == EMPTY_CELL;
+}
+
+int Board::get_largest_card(int player) {
+    int res = 0;
+    for(int row = 1; row <= board_size; row++) {
+        for (int col = 1; col <= board_size; col++) {
+            if(log[row][col] == player) res = std::max(res, get_cell(row, col));
+        }
+    }
+
+    return res;
 }
