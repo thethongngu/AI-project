@@ -2,7 +2,6 @@
 // Created by thong on 4/19/20.
 //
 
-#include <iostream>
 #include "Node.h"
 #include "global.h"
 
@@ -26,7 +25,7 @@ int Node::eval() {
     if (is_terminal()) {
         return Board::check_ai_win(human_score, human_card, ai_score, ai_card) * MAX;
     } else {
-        return ai_score + ai_card + ai.sum_cards() - human_score - human_card - human.sum_cards();
+        return ai_score + ai.sum_cards() - human_score - human.sum_cards();
     }
 }
 
@@ -61,13 +60,21 @@ int Node::search_ab(int curr_depth, int max_depth, int is_user_turn, int alpha, 
 
 void Node::generate_children(bool is_user_turn) {
 
+    bool ai_used[15];
+    bool human_used[15];
+
     for(int i = 1; i <= board.get_size(); i++) {
         for(int j = 1; j <= board.get_size(); j++) {
             if (!board.can_put_card(i, j)) continue;
 
+//            ai_used[2] = ai_used[3] = ai_used[5] = ai_used[13] = false;
+//            human_used[2] = human_used[3] = human_used[5] = human_used[13] = false;
+
             if (is_user_turn) {
                 for(int card_id = 0; card_id < human.get_num_card(); card_id++) {
                     unsigned char card = human.get_card(card_id);
+//                    if (human_used[card]) continue; else human_used[card] = true;
+
                     Node child(board, human, ai);
                     child.get_board().put_card(i, j, card, HUMAN_CELL);
                     child.get_board().check_all();
@@ -79,6 +86,8 @@ void Node::generate_children(bool is_user_turn) {
             else {
                 for(int card_id = 0; card_id < ai.get_num_card(); card_id++) {
                     unsigned char card = ai.get_card(card_id);
+//                    if (ai_used[card]) continue; else ai_used[card] = true;
+
                     Node child(board, human, ai);
                     child.get_board().put_card(i, j, card, AI_CELL);
                     child.get_board().check_all();
@@ -104,7 +113,7 @@ Board &Node::get_board() {
 }
 
 void Node::get_best_move(int &row, int &col, int &val) {
-    int best_val = 0;
+    int best_val = children.front().score;
     row = children.front().last_row;
     col = children.front().last_col;
     val = children.front().last_val;
