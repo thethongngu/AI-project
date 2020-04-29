@@ -6,14 +6,19 @@
 #include "global.h"
 
 Node::Node(Board x, Player human, Player ai)
-        : board{x}, human{human}, ai{ai}, last_col(-1), last_row(-1), last_val(-1), score(0) {}
+        : board{x}, human{human}, ai{ai} {
+    last_col = -1;
+    last_row = -1;
+    last_val = -1;
+    score = 0;
+}
 
 bool Node::is_terminal() {
     return human.get_num_card() == 0 && ai.get_num_card() == 0;
 }
 
 int Node::eval() {
-    return board.get_score(AI_CELL) + ai.sum_cards() / 2;
+    return board.get_score(AI_CELL) + ai.sum_cards() - board.get_score(HUMAN_CELL) - human.sum_cards();
 }
 
 int Node::search_ab(int curr_depth, int max_depth, int is_user_turn, int alpha, int beta) {
