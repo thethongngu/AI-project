@@ -11,7 +11,7 @@
 
 class Game {
 private:
-    int is_user;
+    int is_user_first, turn;
     int board_size;
 
     Board board;

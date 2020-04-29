@@ -9,7 +9,7 @@
 Game::Game(int is_user, int board_size) :
         board{board_size}, human{true, board_size}, ai{false, board_size} {
 
-    this->is_user = is_user;
+    this->is_user_first = is_user;
     this->board_size = board_size;
 }
 
@@ -18,7 +18,7 @@ void Game::start(bool autoplay) {
 
     print_game();
     do {
-        if (is_user == 1) {
+        if (is_user_first == 1) {
             std::cout << "Input (row, col, weight): ";  std::cin >> row >> col >> val;
             std::cout << "[\033[1;31mUser\033[0m]: (" << row << ", " << col << ", " << val << ")" << std::endl;
             if (!validate_user_input(row, col, val) || !board.put_card(row, col, val, HUMAN_CELL)) {
@@ -38,7 +38,7 @@ void Game::start(bool autoplay) {
 
         board.check_all();
         print_game();
-        is_user = 1 - is_user;
+        is_user_first = 1 - is_user_first;
 
     } while (!end_game());
 

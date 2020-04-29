@@ -7,6 +7,8 @@
 
 #endif //MAIN_GLOBAL_H
 
+#define debug(a) std::cout << #a << " = " << a << std::endl
+
 const unsigned char EMPTY_CELL = 0;
 const unsigned char HUMAN_CELL = 1;
 const unsigned char AI_CELL = 2;
