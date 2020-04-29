@@ -55,12 +55,14 @@ void Player::remove_card(int val) {
     num_card--;
 }
 
-void Player::make_move(const Board &board, const Player &human, const Player &ai, int &row, int &col, int &val) {
+int Player::make_move(const Board &board, const Player &human, const Player &ai, int &row, int &col, int &val) {
     Node root(board, human, ai);
     int max_depth = estimate_max_depth(board, human, ai);
     std::cout << max_depth << std::endl;
-    root.search_ab(0, max_depth, false, MIN, MAX);
+    int max_score = root.search_ab(0, max_depth, false, MIN, MAX);
     root.get_best_move(row, col, val);
+
+    return max_score;
 }
 
 unsigned char Player::get_card(int card_id) {
@@ -98,5 +100,5 @@ int Player::estimate_max_depth(const Board &board, const Player &human, const Pl
         turn = 1 - turn;
     } while (num_node <= MAX_NODE && num_empty > 0 && num_ai + num_human > 0);
 
-    return depth;
+    return (depth % 2 == 0) ? depth - 1: depth;
 }

@@ -27,10 +27,13 @@ void Game::start(bool autoplay) {
             }
             human.remove_card(val);
         } else {
-            ai.make_move(board, human, ai, row, col, val);
+            int max_score = Player::make_move(board, human, ai, row, col, val);
             board.put_card(row, col, val, AI_CELL);
             ai.remove_card(val);
             std::cout << "[\033[1;32mAI\033[0m]: (" << row << ", " << col << ", " << val << ")" << std::endl;
+            if (max_score == MAX) {
+                std::cout << "Spoiler: I will win :D" << std::endl;
+            }
         }
 
         board.check_all();
@@ -71,5 +74,5 @@ bool Game::validate_user_input(int row, int col, int val) {
 int Game::get_result(int &human_score, int &ai_score, int &human_card, int &ai_card) {
     board.get_score(HUMAN_CELL, human_score, human_card);
     board.get_score(AI_CELL, ai_score, ai_card);
-    return board.check_ai_win(human_score, human_card, ai_score, ai_card);
+    return Board::check_ai_win(human_score, human_card, ai_score, ai_card);
 }

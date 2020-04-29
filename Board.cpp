@@ -69,7 +69,7 @@ void Board::print_board() {
     std::cout << std::endl << "       |" << std::setw(4) << 1;
     for(int i = 2; i <= board_size; i++) std::cout << std::setw(4) << i;
     std::cout << std::endl;
-    std::cout << "-----------------------------" << std::endl;
+    std::cout << "----------------------------------" << std::endl;
 
     for(int row = 1; row <= board_size; row++) {
         std::cout << std::setw(4) << row << "   |";

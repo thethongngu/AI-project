@@ -2,6 +2,7 @@
 // Created by thong on 4/19/20.
 //
 
+#include <iostream>
 #include "Node.h"
 #include "global.h"
 
@@ -25,13 +26,12 @@ int Node::eval() {
     if (is_terminal()) {
         return Board::check_ai_win(human_score, human_card, ai_score, ai_card) * MAX;
     } else {
-        return human_score + human_card - ai_score - ai_card;
+        return ai_score + ai_card + ai.sum_cards() - human_score - human_card - human.sum_cards();
     }
 }
 
 int Node::search_ab(int curr_depth, int max_depth, int is_user_turn, int alpha, int beta) {
 
-//    get_board().print_board();
     if (curr_depth == max_depth || is_terminal()) {
         score = eval();
         return score;

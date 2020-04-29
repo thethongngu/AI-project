@@ -12,4 +12,4 @@ const unsigned char HUMAN_CELL = 1;
 const unsigned char AI_CELL = 2;
 const int MAX = 1000000000;
 const int MIN = -1000000000;
-const int MAX_NODE = 100000000;
+const int MAX_NODE = 10000000;
