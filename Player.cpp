@@ -70,3 +70,9 @@ bool Player::has_card(int val) {
         if (cards[i] == val) return true;
     return false;
 }
+
+int Player::sum_cards() {
+    int res = 0;
+    for(int i = 0; i < num_card; i++) res += cards[i];
+    return res;
+}

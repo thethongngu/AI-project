@@ -20,7 +20,7 @@ private:
 public:
     Game(int is_user, int board_size);
 
-    void start();
+    void start(bool autoplay);
     bool end_game();
     void print_game();
     int get_result(int &human_score, int &ai_score, int &human_card, int &ai_card);

@@ -15,6 +15,6 @@ int main() {
     std::cin >> board_size;
 
     Game game(is_user_first, board_size);
-    game.start();
+    game.start(false);
 }
 

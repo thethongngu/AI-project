@@ -13,7 +13,7 @@ bool Node::is_terminal() {
 }
 
 int Node::eval() {
-    return 0;
+    return board.get_score(AI_CELL) + ai.sum_cards() / 2;
 }
 
 int Node::search_ab(int curr_depth, int is_user_turn, int alpha, int beta) {
@@ -57,6 +57,7 @@ void Node::generate_children(bool is_user_turn) {
                     unsigned char card = human.get_card(card_id);
                     Node child(board, human, ai);
                     child.get_board().put_card(i, j, card, HUMAN_CELL);
+                    child.get_board().check_all();
                     child.update_last_move(i, j, card);
                     child.get_human().remove_card(card);
                     children.push_back(child);
@@ -67,6 +68,7 @@ void Node::generate_children(bool is_user_turn) {
                     unsigned char card = ai.get_card(card_id);
                     Node child(board, human, ai);
                     child.get_board().put_card(i, j, card, AI_CELL);
+                    child.get_board().check_all();
                     child.update_last_move(i, j, card);
                     child.get_ai().remove_card(card);
                     children.push_back(child);

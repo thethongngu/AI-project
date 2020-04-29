@@ -24,6 +24,7 @@ public:
     bool has_card(int val);
     void print_card();
     void remove_card(int val);
+    int sum_cards();
 
     void make_move(const Board& board, const Player& human, const Player& ai, int &row, int &col, int&val);
 };

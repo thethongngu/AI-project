@@ -13,7 +13,7 @@ Game::Game(int is_user, int board_size) :
     this->board_size = board_size;
 }
 
-void Game::start() {
+void Game::start(bool autoplay) {
     int row, col, val;
 
     print_game();
@@ -41,7 +41,7 @@ void Game::start() {
 
     int human_score, ai_score, human_card, ai_card;
     int res = get_result(human_score, ai_score, human_card, ai_card);
-    std::string s = (res == 1) ? "\033[1;32mAI\033[0m win!" : "\033[1;31mAI\033[0m win!";
+    std::string s = (res == 1) ? "\033[1;32mAI\033[0m win!" : "\033[1;31mUser\033[0m win!";
 
     std::cout << s << std::endl;
     std::cout << "========================================" << std::endl;
