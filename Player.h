@@ -19,7 +19,7 @@ public:
 
 
     void reset_card(int board_size);
-    unsigned char get_card(int card_id);
+    int get_card(int card_id);
     int get_num_card() const;
     bool has_card(int val);
     void print_card();

@@ -66,7 +66,7 @@ int Player::make_move(const Board &board, const Player &human, const Player &ai,
     return max_score;
 }
 
-unsigned char Player::get_card(int card_id) {
+int Player::get_card(int card_id) {
     return cards[card_id];
 }
 
@@ -101,6 +101,7 @@ int Player::estimate_max_depth(const Board &board, const Player &human, const Pl
         turn = 1 - turn;
     } while (num_node <= MAX_NODE && num_empty > 0 && num_ai + num_human > 0);
 
-    return depth;
+    return 3;
+//    return depth;
     return (depth % 2 == 0) ? depth - 1: depth;
 }

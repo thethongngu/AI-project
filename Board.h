@@ -9,9 +9,9 @@
 class Board {
 private:
 
-    unsigned char grid[8][8];  // card value
-    unsigned char log[8][8];   // card player
-    unsigned char board_size;
+    int grid[8][8];  // card value
+    int log[8][8];   // card player
+    int board_size;
 
 public:
     explicit Board(int size);

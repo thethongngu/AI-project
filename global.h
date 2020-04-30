@@ -9,9 +9,9 @@
 
 #define debug(a) std::cout << #a << " = " << a << std::endl
 
-const unsigned char EMPTY_CELL = 0;
-const unsigned char HUMAN_CELL = 1;
-const unsigned char AI_CELL = 2;
+const int EMPTY_CELL = 0;
+const int HUMAN_CELL = 1;
+const int AI_CELL = 2;
 const int MAX = 1000000000;
 const int MIN = -1000000000;
 const int MAX_NODE = 10000000;

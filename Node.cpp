@@ -68,8 +68,8 @@ void Node::generate_children(bool is_user_turn) {
         for(int j = 1; j <= board.get_size(); j++) {
             if (!board.can_put_card(i, j)) continue;
 
-            ai_used[2] = ai_used[3] = ai_used[5] = ai_used[13] = false;
-            human_used[2] = human_used[3] = human_used[5] = human_used[13] = false;
+            ai_used[2] = ai_used[3] = ai_used[5] = ai_used[8] = ai_used[13] = false;
+            human_used[2] = human_used[3] = human_used[5] = human_used[8] = human_used[13] = false;
 
             if (is_user_turn) {
                 for(int card_id = 0; card_id < human.get_num_card(); card_id++) {

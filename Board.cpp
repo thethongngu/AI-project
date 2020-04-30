@@ -30,18 +30,18 @@ bool Board::check_at(int row, int col) {
     char y[9] = {-1, 0, 1, -1, 0, 1, -1, 0, 1};
 
     int sum = 0;
-    for(unsigned char i = 0; i < 9; i++) {
+    for(int i = 0; i < 9; i++) {
         sum += grid[row + x[i]][col + y[i]];
     }
     return sum <= 15;
 }
 
 void Board::check_all() {
-    std::pair<unsigned char, unsigned char> remove[64];
+    std::pair<int, int> remove[64];
     int len = 0;
     for(int row = 1; row <= board_size; row++) {
         for (int col = 1; col <= board_size; col++) {
-            if (!check_at(row, col)) remove[len++] = std::pair<unsigned char, unsigned char>(row, col);
+            if (!check_at(row, col)) remove[len++] = std::pair<int, int>(row, col);
         }
     }
 
