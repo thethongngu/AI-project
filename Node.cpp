@@ -25,14 +25,18 @@ float Node::eval() {
     board.get_score(AI_CELL, ai_score, ai_card);
 
     if (is_terminal()) {
-        return Board::check_ai_win(human_score, human_card, ai_score, ai_card) * MAX;
+        return (float)Board::check_ai_win(human_score, human_card, ai_score, ai_card) * MAX;
     } else {
         int sum_card_ai = ai.sum_cards();
         int sum_card_human = human.sum_cards();
-        int remain_cell, remain_score;
-        board.get_removing_info(last_row, last_col, remain_cell, remain_score);
-
-        return ai_score + sum_card_ai * 2 - human_score - sum_card_human * 2;
+        int remain_cell = 0, remain_score = 0;
+        float loss = 0;
+        if (!board.is_remove(last_row, last_col)) {
+            board.get_removing_info(last_row, last_col, remain_cell, remain_score);
+            loss = (last_val * remain_cell) / 8;
+        }
+        float aa = ai_score + sum_card_ai - human_score - sum_card_human;
+        return aa - loss;
     }
 }
 

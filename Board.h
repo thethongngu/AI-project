@@ -21,6 +21,7 @@ public:
     int get_size() const;
     int get_cell(int row, int col);
     int is_empty(int row, int col) const;
+    bool is_remove(int row, int col);
     int num_empty() const;
 
     bool check_at(int row, int col);

@@ -45,7 +45,9 @@ void Game::start(bool autoplay) {
 
     int human_score, ai_score, human_card, ai_card;
     int res = get_result(human_score, ai_score, human_card, ai_card);
-    std::string s = (res == 1) ? "\033[1;32mAI\033[0m win!" : "\033[1;31mUser\033[0m win!";
+    std::string s;
+    if (res == 0) s = "tie!";
+    else s = (res == 1) ? "\033[1;32mAI\033[0m win!" : "\033[1;31mUser\033[0m win!";
 
     std::cout << s << std::endl;
     std::cout << "========================================" << std::endl;

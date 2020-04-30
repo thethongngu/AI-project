@@ -40,15 +40,16 @@ void Board::get_removing_info(int row, int col, int &remain_cell, int &remain_sc
     char x[9] = {-1, -1, -1, 0, 0, 0, 1, 1, 1};
     char y[9] = {-1, 0, 1, -1, 0, 1, -1, 0, 1};
 
-    remain_cell = 16 - get_cell(row, col);  remain_score = 0;
+    remain_cell = 0;  remain_score = 16 - get_cell(row, col);
     for(int i = 0; i < 9; i++) {
         int xx = row + x[i], yy = col + y[i];
         if (xx < 1 || yy < 1 || xx > board_size || yy > board_size) continue;
 
         int cell = get_cell(xx, yy);
         if (log[xx][yy] != EMPTY_CELL && cell == 0) continue;
-        if (cell == 0) remain_cell++; else remain_score -= cell;
+        remain_cell++; remain_score -= cell;
     }
+    remain_score = std::abs(remain_score);
 }
 
 void Board::check_all() {
@@ -148,6 +149,10 @@ int Board::check_ai_win(int human_score, int human_card, int ai_score, int ai_ca
     if (human_score == ai_score && human_card > ai_card) return -1;
     if (human_score == ai_score && human_card == ai_card) return 0;
     return 1;
+}
+
+bool Board::is_remove(int row, int col) {
+    return (log[row][col] != EMPTY_CELL && get_cell(row,col) == 0);
 }
 
 

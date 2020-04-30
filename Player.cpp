@@ -58,9 +58,9 @@ void Player::remove_card(int val) {
 float Player::make_move(const Board &board, const Player &human, const Player &ai, int &row, int &col, int &val) {
     Node root(board, human, ai);
     int max_depth = estimate_max_depth(board, human, ai);
-    debug(max_depth);
+//    debug(max_depth);
     float max_score = root.search_ab(0, max_depth, false, MIN, MAX);
-    debug(max_score);
+//    debug(max_score);
     root.get_best_move(row, col, val);
 
     return max_score;
