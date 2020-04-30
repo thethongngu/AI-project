@@ -36,20 +36,17 @@ bool Board::check_at(int row, int col) {
     return sum <= 15;
 }
 
-void Board::get_removing_info(int row, int col, int &remain_cell, int &remain_score) {
+void Board::get_removing_info(int row, int col, float &loss) {
     char x[9] = {-1, -1, -1, 0, 0, 0, 1, 1, 1};
     char y[9] = {-1, 0, 1, -1, 0, 1, -1, 0, 1};
 
-    remain_cell = 0;  remain_score = 16 - get_cell(row, col);
+    loss = 0;
     for(int i = 0; i < 9; i++) {
         int xx = row + x[i], yy = col + y[i];
         if (xx < 1 || yy < 1 || xx > board_size || yy > board_size) continue;
-
-        int cell = get_cell(xx, yy);
-        if (log[xx][yy] != EMPTY_CELL && cell == 0) continue;
-        remain_cell++; remain_score -= cell;
+        if (is_remove(xx, yy)) continue;
+        if (get_cell(xx, yy) == 0) loss += 0.001; else loss += get_cell(xx, yy) * 0.01;
     }
-    remain_score = std::abs(remain_score);
 }
 
 void Board::check_all() {

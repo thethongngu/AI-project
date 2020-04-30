@@ -27,11 +27,9 @@ float Node::eval() {
     } else {
         int sum_card_ai = ai.sum_cards();
         int sum_card_human = human.sum_cards();
-        int remain_cell = 0, remain_score = 0;
         float loss = 0;
         if (!board.is_remove(last_row, last_col)) {
-            board.get_removing_info(last_row, last_col, remain_cell, remain_score);
-            loss = (float)(last_val * remain_cell) / 8.0;
+            board.get_removing_info(last_row, last_col, loss);
         }
         float aa = ai_score + sum_card_ai - human_score - sum_card_human;
         return aa - loss;
