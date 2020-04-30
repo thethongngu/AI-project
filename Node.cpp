@@ -2,8 +2,6 @@
 // Created by thong on 4/19/20.
 //
 
-#include <iostream>
-#include <assert.h>
 #include "Node.h"
 #include "global.h"
 
@@ -33,7 +31,7 @@ float Node::eval() {
         float loss = 0;
         if (!board.is_remove(last_row, last_col)) {
             board.get_removing_info(last_row, last_col, remain_cell, remain_score);
-            loss = (last_val * remain_cell) / 8;
+            loss = (float)(last_val * remain_cell) / 8.0;
         }
         float aa = ai_score + sum_card_ai - human_score - sum_card_human;
         return aa - loss;
@@ -124,7 +122,7 @@ Board &Node::get_board() {
 }
 
 void Node::get_best_move(int &row, int &col, int &val) {
-    int best_val = children.front().score;
+    float best_val = children.front().score;
     row = children.front().last_row;
     col = children.front().last_col;
     val = children.front().last_val;
