@@ -14,4 +14,4 @@ const int HUMAN_CELL = 1;
 const int AI_CELL = 2;
 const int MAX = 1000000000;
 const int MIN = -1000000000;
-const int MAX_NODE = 10000000;
+const int MAX_NODE = 100000000;

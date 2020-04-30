@@ -24,20 +24,13 @@ int Node::eval() {
     board.get_score(HUMAN_CELL, human_score, human_card);
     board.get_score(AI_CELL, ai_score, ai_card);
 
-    assert(human_card >= 0);
-    assert(human_score >= 0);
-    assert(ai_score >= 0);
-    assert(ai_card >= 0);
-
-//    if (is_terminal()) {
-//        return Board::check_ai_win(human_score, human_card, ai_score, ai_card) * MAX;
-//    } else {
+    if (is_terminal()) {
+        return Board::check_ai_win(human_score, human_card, ai_score, ai_card) * MAX;
+    } else {
         int sum_card_ai = ai.sum_cards();
         int sum_card_human = human.sum_cards();
-        assert(sum_card_ai >=0);
-        assert(sum_card_human >=0);
         return ai_score + sum_card_ai - human_score - sum_card_human;
-//    }
+    }
 }
 
 int Node::search_ab(int curr_depth, int max_depth, int is_user_turn, int alpha, int beta) {

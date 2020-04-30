@@ -101,7 +101,5 @@ int Player::estimate_max_depth(const Board &board, const Player &human, const Pl
         turn = 1 - turn;
     } while (num_node <= MAX_NODE && num_empty > 0 && num_ai + num_human > 0);
 
-    return 3;
-//    return depth;
-    return (depth % 2 == 0) ? depth - 1: depth;
+    return (depth % 2 == 0) ? std::max(3, depth - 1): std::max(3, depth);
 }
