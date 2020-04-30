@@ -29,7 +29,7 @@ int Node::eval() {
     } else {
         int sum_card_ai = ai.sum_cards();
         int sum_card_human = human.sum_cards();
-        return ai_score + sum_card_ai - human_score - sum_card_human;
+        return ai_score + sum_card_ai * 2 - human_score - sum_card_human * 2;
     }
 }
 
