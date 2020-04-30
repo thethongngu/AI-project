@@ -27,10 +27,11 @@ void Game::start(bool autoplay) {
             }
             human.remove_card(val);
         } else {
-            int max_score = Player::make_move(board, human, ai, row, col, val);
+            float max_score = Player::make_move(board, human, ai, row, col, val);
             board.put_card(row, col, val, AI_CELL);
             ai.remove_card(val);
             std::cout << "[\033[1;32mAI\033[0m]: (" << row << ", " << col << ", " << val << ")" << std::endl;
+
             if (max_score == MAX) {
                 std::cout << "Spoiler: I will win :D" << std::endl;
             }

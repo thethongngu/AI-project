@@ -8,7 +8,7 @@
 #include <iomanip>
 #include "global.h"
 
-Board::Board(int size) : grid{0}, log{0} {
+Board::Board(int size) : grid{0}, log{EMPTY_CELL} {
     this->board_size = size;
     for(int row = 1; row <= board_size; row++) {
         for (int col = 1; col <= board_size; col++) {
@@ -34,6 +34,21 @@ bool Board::check_at(int row, int col) {
         sum += grid[row + x[i]][col + y[i]];
     }
     return sum <= 15;
+}
+
+void Board::get_removing_info(int row, int col, int &remain_cell, int &remain_score) {
+    char x[9] = {-1, -1, -1, 0, 0, 0, 1, 1, 1};
+    char y[9] = {-1, 0, 1, -1, 0, 1, -1, 0, 1};
+
+    remain_cell = 16 - get_cell(row, col);  remain_score = 0;
+    for(int i = 0; i < 9; i++) {
+        int xx = row + x[i], yy = col + y[i];
+        if (xx < 1 || yy < 1 || xx > board_size || yy > board_size) continue;
+
+        int cell = get_cell(xx, yy);
+        if (log[xx][yy] != EMPTY_CELL && cell == 0) continue;
+        if (cell == 0) remain_cell++; else remain_score -= cell;
+    }
 }
 
 void Board::check_all() {

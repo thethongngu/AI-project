@@ -32,6 +32,7 @@ public:
     void print_board();
 
     void get_score(int player, int &board_score, int &card_score);
+    void get_removing_info(int row, int col, int &remain_cell, int &remain_score);
 };
 
 

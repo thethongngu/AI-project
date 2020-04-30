@@ -27,7 +27,7 @@ public:
     int sum_cards();
 
     static int estimate_max_depth(const Board& board, const Player& human, const Player& ai);
-    static int make_move(const Board& board, const Player& human, const Player& ai, int &row, int &col, int&val);
+    static float make_move(const Board& board, const Player& human, const Player& ai, int &row, int &col, int&val);
 };
 
 

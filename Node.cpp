@@ -19,7 +19,7 @@ bool Node::is_terminal() {
     return human.get_num_card() == 0 && ai.get_num_card() == 0;
 }
 
-int Node::eval() {
+float Node::eval() {
     int human_score, human_card, ai_score, ai_card;
     board.get_score(HUMAN_CELL, human_score, human_card);
     board.get_score(AI_CELL, ai_score, ai_card);
@@ -29,11 +29,14 @@ int Node::eval() {
     } else {
         int sum_card_ai = ai.sum_cards();
         int sum_card_human = human.sum_cards();
+        int remain_cell, remain_score;
+        board.get_removing_info(last_row, last_col, remain_cell, remain_score);
+
         return ai_score + sum_card_ai * 2 - human_score - sum_card_human * 2;
     }
 }
 
-int Node::search_ab(int curr_depth, int max_depth, int is_user_turn, int alpha, int beta) {
+float Node::search_ab(int curr_depth, int max_depth, int is_user_turn, float alpha, float beta) {
 
     if (curr_depth == max_depth || is_terminal()) {
         score = eval();
