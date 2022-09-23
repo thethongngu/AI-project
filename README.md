@@ -1,4 +1,4 @@
-# AI Project
+# Simple alpha-beta tree search
 
 To compile:
 ```$ make```
